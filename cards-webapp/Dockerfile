@@ -5,7 +5,7 @@ LABEL maintainer Tom Kaesler <tom.kaesler@mni.thm.de>
 ARG baseUrl=http://localhost/
 
 ENV CARDS_APP https://git.thm.de/arsnova/flashcards/-/jobs/artifacts/master/download?job=build
-ENV CARDS_SETTINGS https://git.thm.de/arsnova/flashcards/raw/master/settings.json
+ENV CARDS_SETTINGS https://git.thm.de/arsnova/flashcards/raw/master/settings_debug.json
 
 ENV ROOT_URL=$baseUrl
 
@@ -24,6 +24,7 @@ RUN \
     mv download\?job\=build cards.zip && \
     unzip cards.zip && \
     curl -fsSLO "$CARDS_SETTINGS" && \
+    mv settings_debug.json settings.json && \
     npm config set registry https://registry.npmjs.org/ && \
     cd /build/bundle/programs/server && \
     npm install
